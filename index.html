@@ -107,7 +107,7 @@
       .card-one {
         width: 350px;
         height: 150px;
-        margin: 0px 10px 10px;
+        margin: 0px 0px 10px;
         background: hsl(226, 25%, 17%);
         border: solid 0.1em rgba(255, 255, 255, 0.39);
         border-radius: 15px;
@@ -220,8 +220,12 @@
         transform: translateX(22px);
       }
       @media (max-width: 740px){
- 
-        .main{
+        .body{
+          margin:0px 10px;
+        }
+        .main,
+        .list,
+        .nav-bar{
           width: 100%;
           margin: 0px;
         }
@@ -233,11 +237,18 @@
         }
 
         .list{
-          margin: 50px 50px;
+          margin: 60px 10px;
           text-align: center;
         }
-        .cards{
-          margin: 0px -5px 0px;
+        .nav-bar{
+          margin: 25px 0px;
+        }
+        .cards,
+        .card-one{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin: 15px 0px 0px 3px;
         }
 
       }
