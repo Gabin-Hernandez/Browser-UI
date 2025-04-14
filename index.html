@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/monkey-25-32.png"
+    />
+
+    <title>Browser extensions manager UI</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 15px;
+        margin-top: -10px;
+        text-align: center;
+        color:white;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      .body {
+        height: 100%;
+        margin: 0;
+        background: linear-gradient(to bottom, #040918 0%, #091540 100%);
+      }
+      body.light-mode {
+        background: #f5f5f5;
+        color: #333;
+      }
+      .nav-bar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        height: 55px;
+        margin: 20px 90px;
+        border-radius: 10px;
+        background-color: hsla(0, 0%, 78%, 0.24);
+      }
+      .nav-left img {
+        margin: 10px;
+        height: 30px;
+      }
+      .nav-right {
+        margin: 10px;
+      }
+      
+      .mode {
+        background-color: rgba(255, 255, 255, 0.219);
+        border: none;
+        height: 35px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .list {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        height: 55px;
+        margin: 20px 90px;
+        border-radius: 10px;
+      }
+      .left {
+        color: white;
+      }
+      .body.light-mode .left{
+        color: #000;
+      }
+      .right {
+        margin: 30px;
+      }
+      .right button {
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: hsla(216, 8%, 75%, 0.767);
+        border: none;
+        height: 30px;
+        width: 70px;
+        color: white;
+      }
+      .body.light-mode .right button{
+        color: #000;
+      }
+      .body.light-mode .right button:hover{
+        color: white;
+      }
+      .right button:hover {
+        background-color: hsl(3, 86%, 64%);
+        cursor: pointer;
+        color: black;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        margin: 20px 80px;
+      }
+      body.light-mode .card-one {
+        background: #fff;
+        border: 0.1em solid #ccc;
+        color: #333;
+      }
+      .card-one {
+        width: 350px;
+        height: 150px;
+        margin: 0px 10px 10px;
+        background: hsl(226, 25%, 17%);
+        border: solid 0.1em rgba(255, 255, 255, 0.39);
+        border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: sans-serif;
+      }
+      .top {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .top img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+      .bottom {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .text-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .text-content .title {
+        font-weight: bold;
+        color: white;
+        margin: 0;
+      }
+      .body.light-mode .text-content .title{
+        color: #000;
+      }
+
+      .text-content .description {
+        font-size: 0.85rem;
+        color: hsl(219, 7%, 60%);
+        margin: 5px 0 0 0;
+      }
+      .remove{
+        cursor: pointer;
+        color: white;
+        border-radius: 20px;
+        height: 30px;
+        width: 80px;
+        margin-top: 20px;
+        background-color: rgba(245, 222, 179, 0.021);
+        border: solid 1px #666;
+      }
+      .body.light-mode .remove{
+        color: #000;
+      }
+      
+      .body.light-mode .remove:hover{
+        color: white;
+      }
+      .remove:hover{
+        background-color: hsl(3, 71%, 56%);
+        color: #000;
+      }
+      .switch-container {
+        margin-top: 20px;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 28px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: hsl(0, 0%, 80%);
+        border-radius: 34px;
+        transition: 0.4s;
+      }
+
+      .slider::before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: hsl(3, 71%, 56%);
+      }
+
+      input:checked + .slider::before {
+        transform: translateX(22px);
+      }
+      @media (max-width: 740px){
+ 
+        .main{
+          width: 100%;
+          margin: 0px;
+        }
+        .cards, 
+        .list{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .list{
+          margin: 50px 50px;
+          text-align: center;
+        }
+        .cards{
+          margin: 0px 7px 0px;
+        }
+
+      }
+    </style>
+  </head>
+  <body class="body">
+    <main class="main">
+      <nav class="nav-bar">
+        <div class="nav-left">
+          <img src="./assets/images/logo.svg" alt="" />
+        </div>
+        <div class="nav-right">
+          <button class="mode">
+            <img src="./assets/images/icon-sun.svg" alt="" />
+          </button>
+        </div>
+      </nav>
+      <div class="list">
+        <div class="left">
+          <h1>Extensions List</h1>
+        </div>
+        <div class="right">
+          <button class="btn-all">All</button>
+          <button class="btn-active">Active</button>
+          <button class="btn-inactive">Inactive</button>
+        </div>
+      </div>
+
+      <!-- TEMPLATE CARDS -->
+      <div class="cards">
+
+        <template id="item-template">
+        <div class="card-one">
+          <div class="top">
+            <img class="logo" src="./assets/images/logo-devlens.svg" alt="" />
+            <div class="text-content">
+              <p class="title">DevLens</p>
+              <p class="description">
+                Quickly inspect page layouts and visualize element boundaries
+              </p>
+            </div>
+          </div>
+          <div class="bottom">
+            <button class="remove">Remove</button>
+            <div class="switch-container">
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      </div>
+      <!-- ACABA TEMPLATE CARDS -->
+      <div class="attribution">
+       Coded by <a href="https://github.com/Gabin-Hernandez">Gabin Hernandez</a>.
+      </div>
+    </main>
+    <script src="./cards.js"></script>
+  </body>
+</html>
